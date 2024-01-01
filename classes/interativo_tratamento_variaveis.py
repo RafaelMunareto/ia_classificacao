@@ -41,6 +41,9 @@ class InterativoTratamentoVariaveis:
     
                 nan_count = self.df[coluna].isna().sum()
                 print(f"Coluna {coluna} - NAN: {nan_count}")
+            else:
+                continue  # Se a resposta não for 'A', 'P' ou 'D', passa para a próxima coluna
+
 
 
     def definirAlvo(self, coluna):
