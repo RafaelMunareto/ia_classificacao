@@ -6,6 +6,8 @@ class MaquinaDeComites:
     def __init__(self, algoritmos_dir):
         self.algoritmos_dir = algoritmos_dir
         self.resultados = None
+        self.previsores = None
+        self.alvo = None
         self.modelos = {}
 
     def carregarResultados(self):
@@ -30,6 +32,10 @@ class MaquinaDeComites:
         return [self.modelos[melhores_nomes[0]], self.modelos[melhores_nomes[1]]]
 
     def criarComite(self):
+        with open(f'{constantes.variaveis_dir}/{constantes.previsor_utilizado}', 'rb') as file:
+            self.alvo = pickle.load(file)
+        with open(f'{constantes.variaveis_dir}/{constantes.alvo}', 'rb') as file:
+            self.alvo = pickle.load(file)
         self.carregarResultados()
         self.carregarModelos()
         melhores_modelos = self.selecionarMelhores()

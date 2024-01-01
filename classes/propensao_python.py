@@ -10,14 +10,14 @@ data_processor = TratamentoVariaveis(constantes.variaveis_csv_file)
 data_processor.capturaDados()  
 data_processor.salvarVariaveis(constantes.variaveis_dir)
 
-## rodar modelos
-loop = LoopingAlgoritmos(constantes.variaveis_dir, constantes.algoritmos_dir)
-loop.carregarDados()
-loop.treinarModelos()
-resultados = loop.obterResultados()
+# ## rodar modelos
+# loop = LoopingAlgoritmos(constantes.variaveis_dir, constantes.algoritmos_dir)
+# loop.carregarDados()
+# loop.treinarModelos()
+# resultados = loop.obterResultados()
 
 #escolher os 2 melhores e juntar
-comites = MaquinaDeComites(constantes.algoritmos_dir)
+comites = MaquinaDeComites(constantes.algoritimos_dir)
 best_model = comites.criarComite()
 
 #Aplicador modelo e fazer a previsão

@@ -1,10 +1,11 @@
 import numpy as np
 import pandas as pd
+from interativo_tratamento_variaveis import InterativoTratamentoVariaveis
+
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import IncrementalPCA
 import pickle
 import constantes 
-
 
 class TratamentoVariaveis:
     def __init__(self, file_path):
@@ -24,18 +25,10 @@ class TratamentoVariaveis:
         self.tratamentoVariaveis()
 
     def tratamentoVariaveis(self): 
-        numeric_cols = self.df.select_dtypes(include=[np.number]).columns
-        self.df[numeric_cols] = self.df[numeric_cols].fillna(self.df[numeric_cols].mean())
-        self.df['Sexo'] = self.df['Sexo'].map({'M': 0, 'F': 1})
-        self.df['CarteiraCliente'] = self.df['CarteiraCliente'].astype('category').cat.codes
-        self.df['alvo'] = self.df['Rotulo'].map({'Não Pago': 0, 'Pago': 1})
-        self.df.drop(['Rotulo'], axis=1, inplace=True) 
-        reference_date = pd.Timestamp('2010-01-01')
-        self.df['DiasDesdeContratacao'] = (pd.to_datetime(self.df['DataContratacao']) - reference_date).dt.days
-        self.df['DiasDesdeInadimplencia'] = (pd.to_datetime(self.df['DataInadimplencia']) - reference_date).dt.days
-        self.df.drop(['DataContratacao', 'DataInadimplencia'], axis=1, inplace=True) 
-        print("Variáveis tratadas")
-        self.separarPrevisoresAlvo()
+        tratamento = InterativoTratamentoVariaveis(self.df)
+        self.previsores, self.alvo = tratamento.processar()
+        self.pca()
+        self.escalonarPrevisores()
 
     def escalonarPrevisores(self):
         scaler = StandardScaler()
@@ -60,11 +53,6 @@ class TratamentoVariaveis:
         print(f'Fazendo o algoritimo {n_components} de {self.previsores.shape}')
         print(f'Variância de {variance_explained}')
 
-    def separarPrevisoresAlvo(self):
-        self.alvo = self.df.alvo
-        self.previsores = self.df.drop(columns=['alvo'])
-        self.pca()
-        self.escalonarPrevisores()
 
     def salvarVariaveis(self, dir_path):
         pickle_files = {
