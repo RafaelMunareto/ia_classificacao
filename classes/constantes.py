@@ -17,6 +17,7 @@ df = 'df.pickle'
 df_com_previsao = './algoritmos/df_com_previsao.pickle'
 resultado_completo_df = 'resultado_completos_metrica_algoritimos.pickle'
 results_df = resultado_dir + 'df_com_previsao.pickle'
+respostas_tratamento_base = 'respostas_tratamento_base.pickle'
 
 #colunas previsores 
 predicao = 'predicao'

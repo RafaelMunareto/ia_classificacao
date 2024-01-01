@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 from interativo_tratamento_variaveis import InterativoTratamentoVariaveis
-
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import IncrementalPCA
 import pickle

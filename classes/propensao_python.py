@@ -17,20 +17,21 @@ data_processor.salvarVariaveis(constantes.variaveis_dir)
 # resultados = loop.obterResultados()
 
 #escolher os 2 melhores e juntar
-comites = MaquinaDeComites(constantes.algoritimos_dir)
-best_model = comites.criarComite()
+# comites = MaquinaDeComites(constantes.algoritimos_dir)
+# best_model = comites.criarComite()
 
-#Aplicador modelo e fazer a previsão
-preditor = Preditor(constantes.modelo_aplicado)
-preditor.carregarModelo()
-preditor.salvarDataFrameComPrevisao(constantes.df_com_predicoes, constantes.results_df)
-
-
-#analise
-# Exemplo de uso
-analise = Analise(constantes.df_com_previsao)
-analise.carregarDados()
-analise.compararAcertos()
-analise.analisarFaixasDeScore()
+# #Aplicador modelo e fazer a previsão
+# preditor = Preditor(constantes.modelo_aplicado)
+# preditor.carregarModelo()
+# preditor.salvarDataFrameComPrevisao(constantes.df_com_predicoes, constantes.results_df)
 
 
+# #analise
+# # Exemplo de uso
+# analise = Analise(constantes.df_com_previsao)
+# analise.carregarDados()
+# analise.compararAcertos()
+# analise.analisarFaixasDeScore()
+
+
+    
