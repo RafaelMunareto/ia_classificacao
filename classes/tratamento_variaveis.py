@@ -62,9 +62,13 @@ class TratamentoVariaveis:
             constantes.previsores_pca: self.pca_model,
             constantes.df: self.df
         }
-        
-        print(f'Variância de {self.df.head(5)}')
-
+       
+        print(f'Previsores {self.previsores}')
+        print(f'alvo scalonados {self.alvo}')
+        totalizador_alvo = pd.DataFrame(self.alvo)
+        totalizador_previsores= pd.DataFrame(self.previsores)
+        print(f'isna previsores:  {totalizador_previsores.isna().sum()}')
+        print(f'isna alvo {totalizador_alvo.isna().sum()}')
         for filename, data in pickle_files.items():
             with open(f'{dir_path}/{filename}', 'wb') as file:
                 pickle.dump(data, file)

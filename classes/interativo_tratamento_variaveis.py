@@ -22,27 +22,27 @@ class InterativoTratamentoVariaveis:
     def processarColunas(self):
         for coluna in list(self.df.columns):
             print(f"Amostra da coluna '{coluna}':\n{self.df[coluna].head(3)}")
+
+            # Solicitando a entrada e convertendo para minúscula para padronização
             resposta = self.solicitarEntradaValida(
                 f"Essa coluna '{coluna}' é alvo, previsor ou descartar? (A/P/D): ",
-                lambda x: x in ['a', 'p', 'd']
-            )
-    
-            if resposta == 'D':
+                lambda x: x.lower() in ['a', 'p', 'd']
+            ).lower()
+
+            if resposta == 'd':
                 self.df.drop(coluna, axis=1, inplace=True)
-            elif resposta == 'A':
+            elif resposta == 'a':
                 self.definirAlvo(coluna)
-            elif resposta == 'P':
+            elif resposta == 'p':
                 novo_nome = input(f"Deseja renomear a coluna '{coluna}'? Deixe em branco para manter ou digite o novo nome: ")
                 if novo_nome:
                     self.df.rename(columns={coluna: novo_nome}, inplace=True)
                     coluna = novo_nome
-    
+
                 self.tratarPrevisor(coluna)
-    
+
                 nan_count = self.df[coluna].isna().sum()
                 print(f"Coluna {coluna} - NAN: {nan_count}")
-            else:
-                continue  # Se a resposta não for 'A', 'P' ou 'D', passa para a próxima coluna
 
 
 
@@ -174,11 +174,9 @@ class InterativoTratamentoVariaveis:
             self.previsores = self.df.drop(columns=['alvo'])
         else:
             self.previsores = self.df
-        print(f'isna do alvo:\n{self.alvo.isna().sum()}')
-        print(f'isna dos previsores:\n{self.previsores.isna().sum()}')
         if self.alvo is not None:
-            print(f'alvo:\n{self.alvo.head(5)}')
-            print(f'previsores:\n{self.previsores.head(5)}')
+            print(f'alvo:\n{self.alvo}')
+            print(f'previsores:\n{self.previsores}')
         else:
             print("Alvo não definido")
         return self.previsores, self.alvo
